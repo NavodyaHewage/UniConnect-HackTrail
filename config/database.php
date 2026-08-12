@@ -10,7 +10,7 @@ class Database
             $host = getenv('DB_HOST') ?: 'localhost';
             $db   = getenv('DB_NAME') ?: 'uniconnect';
             $user = getenv('DB_USER') ?: 'root';
-            $pass = getenv('DB_PASS') ?: '';
+            $pass = getenv('DB_PASS') ?: '1234';
             $dsn  = "mysql:host={$host};dbname={$db};charset=utf8mb4";
 
             try {
