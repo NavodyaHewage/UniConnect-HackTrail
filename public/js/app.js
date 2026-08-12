@@ -21,6 +21,23 @@ document.addEventListener('DOMContentLoaded', () => {
         overlay.addEventListener('click', closeSidebar);
     }
 
+    const roleTabs = document.getElementById('roleTabs');
+    const userRoleInput = document.getElementById('userRoleInput');
+    const roleSubtitle = document.getElementById('roleSubtitle');
+
+    if (roleTabs && userRoleInput) {
+        roleTabs.querySelectorAll('.auth-tab').forEach((tab) => {
+            tab.addEventListener('click', () => {
+                roleTabs.querySelectorAll('.auth-tab').forEach((t) => t.classList.remove('active'));
+                tab.classList.add('active');
+                userRoleInput.value = tab.dataset.role;
+                if (roleSubtitle && tab.dataset.subtitle) {
+                    roleSubtitle.textContent = tab.dataset.subtitle;
+                }
+            });
+        });
+    }
+
     const geoInputs = document.querySelectorAll('input[name="latitude"], input[name="longitude"]');
     if (geoInputs.length && navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {

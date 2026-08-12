@@ -1,37 +1,35 @@
-<?php require __DIR__ . '/../layout/header.php'; ?>
+<?php require __DIR__ . '/../layout/auth_header.php'; ?>
 
-<div class="auth-wrap">
-    <div class="auth-card">
-        <div class="auth-visual">
-            <div>
-                <span class="sidebar-brand-mark">UC</span>
-                <h2>Welcome back to UniConnect.</h2>
-                <p>Log in to pick up right where you left off &mdash; your rooms, gigs, rides, and swaps are all here.</p>
+<div class="auth-topbar">
+    New here? <a href="<?= url('/register') ?>">Register</a>
+</div>
+
+<div class="auth-form-scroll">
+    <div class="auth-form-col">
+        <?php if (!empty($_SESSION['error'])): ?>
+            <div class="alert alert-danger"><?= htmlspecialchars($_SESSION['error']) ?></div>
+            <?php unset($_SESSION['error']); ?>
+        <?php endif; ?>
+
+        <h1>Log In to UniConnect</h1>
+        <p class="auth-subtitle">Pick up right where you left off &mdash; your rooms, gigs, rides, and swaps.</p>
+
+        <form method="POST" action="<?= url('/login') ?>">
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" name="email" class="form-control" placeholder="you@example.com" required>
             </div>
-            <ul class="auth-feature-list">
-                <li><span class="check">&#10003;</span> Verified boarding &amp; job listings</li>
-                <li><span class="check">&#10003;</span> Live ride requests within 3km</li>
-                <li><span class="check">&#10003;</span> Your skills profile &amp; badges</li>
-            </ul>
-        </div>
-        <div class="auth-form-panel">
-            <a href="<?= url('/') ?>" class="back-to-home">&larr; Back to home</a>
-            <h1>Log In</h1>
-            <p class="auth-subtitle">Enter your details to access your dashboard.</p>
-            <form method="POST" action="<?= url('/login') ?>">
-                <div class="mb-3">
-                    <label class="form-label">Email</label>
-                    <input type="email" name="email" class="form-control" placeholder="you@example.com" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Password</label>
-                    <input type="password" name="password" class="form-control" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" required>
-                </div>
-                <button type="submit" class="btn btn-primary w-100">Log In</button>
-            </form>
-            <p class="auth-footer-link">No account? <a href="<?= url('/register') ?>">Register here</a></p>
-        </div>
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="password" name="password" class="form-control" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" required>
+            </div>
+            <button type="submit" class="btn btn-auth-submit w-100">Log In</button>
+        </form>
+
+        <p class="auth-terms">
+            By continuing, you agree to UniConnect's <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+        </p>
     </div>
 </div>
 
-<?php require __DIR__ . '/../layout/footer.php'; ?>
+<?php require __DIR__ . '/../layout/auth_footer.php'; ?>
