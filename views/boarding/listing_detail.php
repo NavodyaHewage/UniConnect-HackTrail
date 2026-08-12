@@ -7,7 +7,7 @@
     <p><strong>Status:</strong> <span class="badge bg-<?= $listing['status'] === 'available' ? 'success' : 'secondary' ?>"><?= htmlspecialchars($listing['status']) ?></span></p>
 
     <?php if (($_SESSION['user_id'] ?? null) == $listing['owner_id']): ?>
-        <form method="POST" action="/boarding/<?= (int) $listing['boarding_id'] ?>/status">
+        <form method="POST" action="<?= url('/boarding/' . (int) $listing['boarding_id'] . '/status') ?>">
             <select name="status" class="form-select w-auto d-inline-block">
                 <option value="available" <?= $listing['status'] === 'available' ? 'selected' : '' ?>>Available</option>
                 <option value="occupied" <?= $listing['status'] === 'occupied' ? 'selected' : '' ?>>Occupied</option>

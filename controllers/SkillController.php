@@ -32,13 +32,13 @@ class SkillController
             'verification_source' => trim($_POST['verification_source'] ?? ''),
         ]);
 
-        header('Location: /skills/profile/' . $_SESSION['user_id']);
+        header('Location: ' . url('/skills/profile/' . $_SESSION['user_id']));
     }
 
     public function verify(int $id): void
     {
         // Admin-only action, gated by user_role in the front controller.
         $this->skillModel->verify($id);
-        header('Location: /skills/directory');
+        header('Location: ' . url('/skills/directory'));
     }
 }

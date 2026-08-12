@@ -40,7 +40,7 @@ class JobController
             'longitude'   => $_POST['longitude'] ?? null,
         ]);
 
-        header('Location: /jobs');
+        header('Location: ' . url('/jobs'));
     }
 
     public function myApplications(): void
@@ -52,6 +52,6 @@ class JobController
     {
         $status = $_POST['status'] ?? 'open';
         $this->jobModel->updateStatus($id, $status);
-        header('Location: /jobs/' . $id);
+        header('Location: ' . url('/jobs/' . $id));
     }
 }

@@ -7,7 +7,7 @@
     <p><strong>Fare:</strong> LKR <?= number_format((float) $ride['fare_amount'], 2) ?></p>
     <p><strong>Status:</strong> <span class="badge bg-info text-dark"><?= htmlspecialchars($ride['ride_status']) ?></span></p>
 
-    <form method="POST" action="/rides/status/<?= (int) $ride['ride_id'] ?>">
+    <form method="POST" action="<?= url('/rides/status/' . (int) $ride['ride_id']) ?>">
         <select name="status" class="form-select w-auto d-inline-block">
             <?php foreach (['requested', 'accepted', 'in_progress', 'completed', 'cancelled'] as $option): ?>
                 <option value="<?= $option ?>" <?= $ride['ride_status'] === $option ? 'selected' : '' ?>><?= ucfirst(str_replace('_', ' ', $option)) ?></option>

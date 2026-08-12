@@ -31,13 +31,13 @@ class AuthController
 
         if ($name === '' || $email === '' || $phone === '' || $password === '' || !in_array($role, ['student', 'villager'], true)) {
             $_SESSION['error'] = 'All fields are required.';
-            header('Location: /register');
+            header('Location: ' . url('/register'));
             return;
         }
 
         if ($this->userModel->findByEmail($email)) {
             $_SESSION['error'] = 'An account with that email already exists.';
-            header('Location: /register');
+            header('Location: ' . url('/register'));
             return;
         }
 
@@ -45,7 +45,7 @@ class AuthController
         $_SESSION['user_id']   = $userId;
         $_SESSION['user_role'] = $role;
 
-        header('Location: /dashboard');
+        header('Location: ' . url('/dashboard'));
     }
 
     public function login(): void
@@ -57,19 +57,19 @@ class AuthController
 
         if (!$user || !password_verify($password, $user['password'])) {
             $_SESSION['error'] = 'Invalid email or password.';
-            header('Location: /login');
+            header('Location: ' . url('/login'));
             return;
         }
 
         $_SESSION['user_id']   = $user['user_id'];
         $_SESSION['user_role'] = $user['user_role'];
 
-        header('Location: /dashboard');
+        header('Location: ' . url('/dashboard'));
     }
 
     public function logout(): void
     {
         session_destroy();
-        header('Location: /login');
+        header('Location: ' . url('/login'));
     }
 }

@@ -13,7 +13,7 @@
                 <td><?= htmlspecialchars($vehicle['vehicle_type']) ?></td>
                 <td><span class="badge bg-<?= $vehicle['status'] === 'available' ? 'success' : 'secondary' ?>"><?= htmlspecialchars($vehicle['status']) ?></span></td>
                 <td>
-                    <form method="POST" action="/rides/offer/toggle" class="d-inline">
+                    <form method="POST" action="<?= url('/rides/offer/toggle') ?>" class="d-inline">
                         <input type="hidden" name="vehicle_id" value="<?= (int) $vehicle['vehicle_id'] ?>">
                         <select name="status" class="form-select form-select-sm d-inline w-auto">
                             <option value="available" <?= $vehicle['status'] === 'available' ? 'selected' : '' ?>>Available</option>

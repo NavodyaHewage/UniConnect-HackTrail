@@ -9,15 +9,37 @@ require_once __DIR__ . '/../controllers/RideController.php';
 require_once __DIR__ . '/../controllers/SkillController.php';
 require_once __DIR__ . '/../controllers/SwapController.php';
 
+// The app may be deployed either at a domain root (via a vhost pointing at
+// public/) or under a subfolder like /UniConnect-HackTrail/public/ on a
+// plain WAMP htdocs install. basePath() detects which, so every internal
+// link and redirect works in both setups.
+function basePath(): string
+{
+    $scriptDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
+    return $scriptDir === '/' ? '' : rtrim($scriptDir, '/');
+}
+
+function url(string $path = ''): string
+{
+    return basePath() . '/' . ltrim($path, '/');
+}
+
 function requireLogin(): void
 {
     if (empty($_SESSION['user_id'])) {
-        header('Location: /login');
+        header('Location: ' . url('/login'));
         exit;
     }
 }
 
-$uri    = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$base = basePath();
+if ($base !== '' && strpos($uri, $base) === 0) {
+    $uri = substr($uri, strlen($base));
+}
+if ($uri === '') {
+    $uri = '/';
+}
 $method = $_SERVER['REQUEST_METHOD'];
 $segments = array_values(array_filter(explode('/', $uri)));
 
@@ -31,7 +53,7 @@ $swaps    = new SwapController();
 switch (true) {
     // Home / dashboard
     case $uri === '/' || $uri === '':
-        header('Location: ' . (empty($_SESSION['user_id']) ? '/login' : '/dashboard'));
+        header('Location: ' . url(empty($_SESSION['user_id']) ? '/login' : '/dashboard'));
         break;
 
     case $uri === '/dashboard':

@@ -2,7 +2,7 @@
 
 <h1 class="h3 mb-4">Request a Ride</h1>
 
-<form method="POST" action="/rides/request" class="col-md-6">
+<form method="POST" action="<?= url('/rides/request') ?>" class="col-md-6">
     <div class="mb-3">
         <label class="form-label">Driver / Vehicle ID</label>
         <input type="number" name="vehicle_id" class="form-control" required>

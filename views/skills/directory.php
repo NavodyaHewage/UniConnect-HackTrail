@@ -2,7 +2,7 @@
 
 <h1 class="h3 mb-4">Skills Directory</h1>
 
-<form method="GET" action="/skills/directory" class="row g-2 mb-4">
+<form method="GET" action="<?= url('/skills/directory') ?>" class="row g-2 mb-4">
     <div class="col-auto">
         <input type="text" name="q" class="form-control" placeholder="Search skills (e.g. PCB Repair)" value="<?= htmlspecialchars($_GET['q'] ?? '') ?>">
     </div>

@@ -8,7 +8,7 @@
             <div class="card-body">
                 <h2 class="h5">My Listed Rooms</h2>
                 <p class="text-muted">Manage rent & room status.</p>
-                <a href="/boarding/create" class="btn btn-sm btn-outline-primary">List a Room</a>
+                <a href="<?= url('/boarding/create') ?>" class="btn btn-sm btn-outline-primary">List a Room</a>
             </div>
         </div>
     </div>
@@ -17,7 +17,7 @@
             <div class="card-body">
                 <h2 class="h5">My Posted Jobs</h2>
                 <p class="text-muted">Local tasks you've posted.</p>
-                <a href="/jobs/create" class="btn btn-sm btn-outline-primary">Post a Task</a>
+                <a href="<?= url('/jobs/create') ?>" class="btn btn-sm btn-outline-primary">Post a Task</a>
             </div>
         </div>
     </div>
@@ -26,7 +26,7 @@
             <div class="card-body">
                 <h2 class="h5">Ride Offering</h2>
                 <p class="text-muted">Toggle tuk-tuk / motorcycle / bicycle availability.</p>
-                <a href="/rides/offer" class="btn btn-sm btn-outline-primary">Manage Rides</a>
+                <a href="<?= url('/rides/offer') ?>" class="btn btn-sm btn-outline-primary">Manage Rides</a>
             </div>
         </div>
     </div>
@@ -35,7 +35,7 @@
             <div class="card-body">
                 <h2 class="h5">Incoming Swap Requests</h2>
                 <p class="text-muted">Produce / meals traded for tech help.</p>
-                <a href="/swaps" class="btn btn-sm btn-outline-primary">View Swaps</a>
+                <a href="<?= url('/swaps') ?>" class="btn btn-sm btn-outline-primary">View Swaps</a>
             </div>
         </div>
     </div>

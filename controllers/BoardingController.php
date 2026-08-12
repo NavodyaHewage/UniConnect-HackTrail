@@ -39,13 +39,13 @@ class BoardingController
             'longitude'   => $_POST['longitude'] ?? null,
         ]);
 
-        header('Location: /boarding');
+        header('Location: ' . url('/boarding'));
     }
 
     public function updateStatus(int $id): void
     {
         $status = $_POST['status'] ?? 'available';
         $this->boardingModel->updateStatus($id, $status);
-        header('Location: /boarding/' . $id);
+        header('Location: ' . url('/boarding/' . $id));
     }
 }

@@ -2,10 +2,10 @@
 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h1 class="h3 mb-0">Boarding Listings</h1>
-    <a href="/boarding/create" class="btn btn-primary">+ List a Room</a>
+    <a href="<?= url('/boarding/create') ?>" class="btn btn-primary">+ List a Room</a>
 </div>
 
-<form method="GET" action="/boarding" class="row g-2 mb-4">
+<form method="GET" action="<?= url('/boarding') ?>" class="row g-2 mb-4">
     <div class="col-auto">
         <input type="text" name="search" class="form-control" placeholder="Search by title...">
     </div>
@@ -26,7 +26,7 @@
                     <p class="mb-1">Rent: LKR <?= number_format((float) $listing['rent_amount'], 2) ?></p>
                     <p class="mb-1">Distance: <?= htmlspecialchars($listing['distance_km']) ?> km</p>
                     <p class="text-muted">Owner: <?= htmlspecialchars($listing['owner_name']) ?></p>
-                    <a href="/boarding/<?= (int) $listing['boarding_id'] ?>" class="btn btn-sm btn-outline-primary">View Details</a>
+                    <a href="<?= url('/boarding/' . (int) $listing['boarding_id']) ?>" class="btn btn-sm btn-outline-primary">View Details</a>
                 </div>
             </div>
         </div>

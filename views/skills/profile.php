@@ -25,7 +25,7 @@
     <?php endif; ?>
 </div>
 
-<form method="POST" action="/skills" class="col-md-6">
+<form method="POST" action="<?= url('/skills') ?>" class="col-md-6">
     <h2 class="h5">Add a Skill</h2>
     <div class="mb-3">
         <label class="form-label">Skill Name</label>

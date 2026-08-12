@@ -7,7 +7,7 @@
     <p><strong>Status:</strong> <span class="badge bg-info text-dark"><?= htmlspecialchars($job['status']) ?></span></p>
 
     <?php if ($job['status'] === 'open'): ?>
-        <form method="POST" action="/jobs/apply">
+        <form method="POST" action="<?= url('/jobs/apply') ?>">
             <input type="hidden" name="job_id" value="<?= (int) $job['job_id'] ?>">
             <button type="submit" class="btn btn-primary">Apply for this Gig</button>
         </form>

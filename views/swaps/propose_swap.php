@@ -2,7 +2,7 @@
 
 <h1 class="h3 mb-4">Propose a Skill Swap</h1>
 
-<form method="POST" action="/swaps/propose" class="col-md-6">
+<form method="POST" action="<?= url('/swaps/propose') ?>" class="col-md-6">
     <div class="mb-3">
         <label class="form-label">Trade With (User ID)</label>
         <input type="number" name="requested_by" class="form-control" required>

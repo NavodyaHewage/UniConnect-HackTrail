@@ -31,7 +31,7 @@ class SwapController
             'item_exchanged'  => trim($_POST['item_exchanged'] ?? ''),
         ]);
 
-        header('Location: /swaps');
+        header('Location: ' . url('/swaps'));
     }
 
     public function history(): void
@@ -44,6 +44,6 @@ class SwapController
     {
         $status = $_POST['status'] ?? 'proposed';
         $this->swapModel->updateStatus($id, $status);
-        header('Location: /swaps');
+        header('Location: ' . url('/swaps'));
     }
 }

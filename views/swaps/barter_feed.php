@@ -2,7 +2,7 @@
 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h1 class="h3 mb-0">Time-Bank / Skill Swap Feed</h1>
-    <a href="/swaps/propose" class="btn btn-primary">+ Propose a Swap</a>
+    <a href="<?= url('/swaps/propose') ?>" class="btn btn-primary">+ Propose a Swap</a>
 </div>
 
 <table class="table">

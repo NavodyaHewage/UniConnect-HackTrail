@@ -2,7 +2,7 @@
 
 <h1 class="h3 mb-4">List a Room</h1>
 
-<form method="POST" action="/boarding" class="col-md-6">
+<form method="POST" action="<?= url('/boarding') ?>" class="col-md-6">
     <div class="mb-3">
         <label class="form-label">Title</label>
         <input type="text" name="title" class="form-control" required>

@@ -3,7 +3,7 @@
 <div class="row justify-content-center">
     <div class="col-md-6">
         <h1 class="h3 mb-4">Create an Account</h1>
-        <form method="POST" action="/register">
+        <form method="POST" action="<?= url('/register') ?>">
             <div class="mb-3">
                 <label class="form-label">Full Name</label>
                 <input type="text" name="name" class="form-control" required>
@@ -29,7 +29,7 @@
             </div>
             <button type="submit" class="btn btn-primary w-100">Register</button>
         </form>
-        <p class="mt-3">Already have an account? <a href="/login">Log in</a></p>
+        <p class="mt-3">Already have an account? <a href="<?= url('/login') ?>">Log in</a></p>
     </div>
 </div>
 

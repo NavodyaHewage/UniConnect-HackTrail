@@ -32,7 +32,7 @@ class RideController
             'pickup_lng'      => $_POST['pickup_lng'] ?? null,
         ]);
 
-        header('Location: /rides/status');
+        header('Location: ' . url('/rides/status'));
     }
 
     public function showOfferForm(): void
@@ -46,7 +46,7 @@ class RideController
         $vehicleId = (int) ($_POST['vehicle_id'] ?? 0);
         $status    = $_POST['status'] ?? 'available';
         $this->vehicleModel->updateStatus($vehicleId, $status);
-        header('Location: /rides/offer');
+        header('Location: ' . url('/rides/offer'));
     }
 
     public function status(int $id): void
@@ -59,6 +59,6 @@ class RideController
     {
         $status = $_POST['status'] ?? 'requested';
         $this->rideModel->updateStatus($id, $status);
-        header('Location: /rides/status/' . $id);
+        header('Location: ' . url('/rides/status/' . $id));
     }
 }
