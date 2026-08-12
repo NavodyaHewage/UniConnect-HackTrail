@@ -44,6 +44,7 @@ class AuthController
         $userId = $this->userModel->create($name, $email, $phone, $password, $role);
         $_SESSION['user_id']   = $userId;
         $_SESSION['user_role'] = $role;
+        $_SESSION['user_name'] = $name;
 
         header('Location: ' . url('/dashboard'));
     }
@@ -63,6 +64,7 @@ class AuthController
 
         $_SESSION['user_id']   = $user['user_id'];
         $_SESSION['user_role'] = $user['user_role'];
+        $_SESSION['user_name'] = $user['name'];
 
         header('Location: ' . url('/dashboard'));
     }

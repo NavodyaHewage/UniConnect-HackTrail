@@ -24,6 +24,17 @@ function url(string $path = ''): string
     return basePath() . '/' . ltrim($path, '/');
 }
 
+// Lets the sidebar highlight whichever section the current route belongs to.
+function isActive(string $prefix): string
+{
+    $current = $GLOBALS['currentUri'] ?? '';
+    if ($prefix === '/') {
+        return $current === '/' ? 'active' : '';
+    }
+
+    return strpos($current, $prefix) === 0 ? 'active' : '';
+}
+
 function requireLogin(): void
 {
     if (empty($_SESSION['user_id'])) {
@@ -40,6 +51,7 @@ if ($base !== '' && strpos($uri, $base) === 0) {
 if ($uri === '') {
     $uri = '/';
 }
+$GLOBALS['currentUri'] = $uri;
 $method = $_SERVER['REQUEST_METHOD'];
 $segments = array_values(array_filter(explode('/', $uri)));
 
@@ -53,7 +65,11 @@ $swaps    = new SwapController();
 switch (true) {
     // Home / dashboard
     case $uri === '/' || $uri === '':
-        header('Location: ' . url(empty($_SESSION['user_id']) ? '/login' : '/dashboard'));
+        if (empty($_SESSION['user_id'])) {
+            require __DIR__ . '/../views/home/landing.php';
+        } else {
+            header('Location: ' . url('/dashboard'));
+        }
         break;
 
     case $uri === '/dashboard':
