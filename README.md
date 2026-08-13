@@ -19,6 +19,16 @@ PHP 8.x (PDO, no framework) + MySQL + Bootstrap 5, served by Apache/WAMP.
 3. Point your WAMP vhost / Apache document root at the `public/` directory.
 4. Visit `/register` to create a Student or Villager account.
 
+### Creating an admin account
+
+Registration only offers Student and Villager — admin accounts aren't self-registrable, since anyone being able to grant themselves admin would be a security hole. To promote an account after it's registered normally through `/register`:
+
+```sql
+UPDATE Users SET user_role = 'admin' WHERE email = 'admin@example.com';
+```
+
+The account can then log in through the normal `/login` form. Admins currently get the same dashboard and access as students (see `public/index.php`'s `/dashboard` route) — listing verification and job moderation screens aren't built yet.
+
 ## Directory Structure
 
 ```

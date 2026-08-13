@@ -39,26 +39,6 @@ class Ride
         return $row ?: null;
     }
 
-    public function requestRide(array $data): int
-    {
-        $stmt = $this->db->prepare(
-            'INSERT INTO Rides (driver_id, vehicle_id, pickup_location, drop_location, fare_amount, passenger_id, pickup_lat, pickup_lng)
-             VALUES (:driver_id, :vehicle_id, :pickup_location, :drop_location, :fare_amount, :passenger_id, :pickup_lat, :pickup_lng)'
-        );
-        $stmt->execute([
-            'driver_id'        => $data['driver_id'],
-            'vehicle_id'       => $data['vehicle_id'],
-            'pickup_location'  => $data['pickup_location'],
-            'drop_location'    => $data['drop_location'],
-            'fare_amount'      => $data['fare_amount'] ?? 0.00,
-            'passenger_id'     => $data['passenger_id'] ?? null,
-            'pickup_lat'       => $data['pickup_lat'] ?? null,
-            'pickup_lng'       => $data['pickup_lng'] ?? null,
-        ]);
-
-        return (int) $this->db->lastInsertId();
-    }
-
     public function updateStatus(int $id, string $status): bool
     {
         $stmt = $this->db->prepare('UPDATE Rides SET ride_status = :status WHERE ride_id = :id');

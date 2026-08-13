@@ -51,6 +51,16 @@ CREATE TABLE Boardings (
     FOREIGN KEY (owner_id) REFERENCES Users(user_id)
 );
 
+CREATE TABLE BoardingInterests (
+    interest_id INT AUTO_INCREMENT PRIMARY KEY,
+    boarding_id INT NOT NULL,
+    student_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY unique_interest (boarding_id, student_id),
+    FOREIGN KEY (boarding_id) REFERENCES Boardings(boarding_id) ON DELETE CASCADE,
+    FOREIGN KEY (student_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
+
 CREATE TABLE Jobs (
     job_id INT AUTO_INCREMENT PRIMARY KEY,
     posted_by INT NOT NULL,

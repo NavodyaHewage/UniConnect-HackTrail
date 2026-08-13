@@ -38,9 +38,6 @@
             <a href="<?= url('/jobs') ?>" class="sidebar-link <?= isActive('/jobs') ?>">
                 <span class="sidebar-icon">&#128188;</span> Jobs
             </a>
-            <a href="<?= url('/rides/request') ?>" class="sidebar-link <?= isActive('/rides') ?>">
-                <span class="sidebar-icon">&#128690;</span> Rides
-            </a>
             <a href="<?= url('/skills/directory') ?>" class="sidebar-link <?= isActive('/skills') ?>">
                 <span class="sidebar-icon">&#9733;</span> Skills
             </a>

@@ -74,10 +74,12 @@ switch (true) {
 
     case $uri === '/dashboard':
         requireLogin();
-        if ($_SESSION['user_role'] === 'student') {
-            require __DIR__ . '/../views/dashboard/student_dashboard.php';
-        } else {
+        // Admins currently get the same access as students; villagers get
+        // their own listing/task-management view.
+        if ($_SESSION['user_role'] === 'villager') {
             require __DIR__ . '/../views/dashboard/villager_dashboard.php';
+        } else {
+            require __DIR__ . '/../views/dashboard/student_dashboard.php';
         }
         break;
 
@@ -114,6 +116,10 @@ switch (true) {
         requireLogin();
         $boarding->updateStatus((int) $m[1]);
         break;
+    case preg_match('#^/boarding/(\d+)/interest$#', $uri, $m) === 1:
+        requireLogin();
+        $boarding->expressInterest((int) $m[1]);
+        break;
     case preg_match('#^/boarding/(\d+)$#', $uri, $m) === 1:
         $boarding->show((int) $m[1]);
         break;
@@ -143,14 +149,6 @@ switch (true) {
         break;
 
     // Rides
-    case $uri === '/rides/request' && $method === 'GET':
-        requireLogin();
-        $rides->showRequestForm();
-        break;
-    case $uri === '/rides/request' && $method === 'POST':
-        requireLogin();
-        $rides->requestRide();
-        break;
     case $uri === '/rides/offer' && $method === 'GET':
         requireLogin();
         $rides->showOfferForm();

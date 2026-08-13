@@ -3,7 +3,7 @@
 <h1 class="h3 mb-4">Student Dashboard</h1>
 
 <div class="row g-4">
-    <div class="col-md-3">
+    <div class="col-md-4">
         <div class="card h-100">
             <div class="card-body">
                 <h2 class="h5">My Bookings</h2>
@@ -12,7 +12,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <div class="card h-100">
             <div class="card-body">
                 <h2 class="h5">My Job Applications</h2>
@@ -21,16 +21,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="card h-100">
-            <div class="card-body">
-                <h2 class="h5">My Rides</h2>
-                <p class="text-muted">Bicycle rides & tuk-tuk requests.</p>
-                <a href="<?= url('/rides/request') ?>" class="btn btn-sm btn-outline-primary">Request a Ride</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <div class="card h-100">
             <div class="card-body">
                 <h2 class="h5">My Skill Profile</h2>
