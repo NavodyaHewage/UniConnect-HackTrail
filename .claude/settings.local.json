@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C /d/Documents/UOR/UniConnect-HackTrail diff config/database.php)",
+      "Bash(mysql --version)",
+      "Bash(/c/xampp/mysql/bin/mysql --version)",
+      "Bash(/c/xampp/mysql/bin/mysql -u root uniconnect -e \"SELECT user_id, name, email, user_role FROM Users;\")",
+      "Bash(/c/xampp/mysql/bin/mysql -u root uniconnect -e \"SELECT * FROM Boardings;\")",
+      "Bash(/c/xampp/mysql/bin/mysql -u root uniconnect -e ' *)",
+      "Bash(/c/xampp/mysql/bin/mysql -u root uniconnect -e \"DESCRIBE Boardings;\")",
+      "Bash(ls -la /c/xampp/htdocs/ 2>&1 | grep -i uniconnect *)",
+      "Read(//c/xampp/htdocs//**)",
+      "Read(//c/xampp/htdocs/UniConnect-HackTrail/**)",
+      "Bash(/c/xampp/mysql/bin/mysql -u root uniconnect -e \"DESCRIBE Jobs;\")",
+      "Bash(/c/xampp/mysql/bin/mysql -u root uniconnect -e \"SELECT user_id, name, user_role FROM Users;\")",
+      "Bash(/c/xampp/mysql/bin/mysql -u root uniconnect -e \"SELECT * FROM Jobs;\")",
+      "Bash(curl -s -c /tmp/student_cookies.txt -b /tmp/student_cookies.txt -D - -o /tmp/student_register.html -d 'name=Test Student&email=teststudent___CMDSUB_OUTPUT__@test.com&phone=0711111111&password=test1234&user_role=student' http://localhost/UniConnect-HackTrail/public/register)",
+      "Read(//tmp/**)",
+      "Bash(curl -s -c /tmp/student_cookies.txt -b /tmp/student_cookies.txt -D - -o /tmp/jobs_page.html http://localhost/UniConnect-HackTrail/public/jobs)",
+      "Bash(curl -s -c /tmp/student_cookies.txt -b /tmp/student_cookies.txt http://localhost/UniConnect-HackTrail/public/jobs/1)",
+      "Bash(curl -s -c /tmp/villager_cookies.txt -b /tmp/villager_cookies.txt -D - -o /tmp/villager_register.html -d 'name=Test Villager&email=testvillager___CMDSUB_OUTPUT__@test.com&phone=0722222222&password=test1234&user_role=villager' http://localhost/UniConnect-HackTrail/public/register)",
+      "Bash(curl -s -c /tmp/villager_cookies.txt -b /tmp/villager_cookies.txt -D - -o /dev/null http://localhost/UniConnect-HackTrail/public/jobs)",
+      "Bash(curl -s -c /tmp/villager_cookies.txt -b /tmp/villager_cookies.txt http://localhost/UniConnect-HackTrail/public/dashboard)",
+      "Bash(grep -i \"^opcache\" /c/xampp/php/php.ini 2>&1)",
+      "Read(//c/xampp/php/**)",
+      "Bash(grep -n -A3 'case $uri === '\\\\''/jobs'\\\\''' /c/xampp/htdocs/UniConnect-HackTrail/public/index.php)",
+      "Bash(/c/xampp/mysql/bin/mysql -u root -h localhost uniconnect -e \"SELECT \\(SELECT COUNT\\(*\\) FROM Rides\\) AS rides_count, \\(SELECT COUNT\\(*\\) FROM Vehicles\\) AS vehicles_count;\")",
+      "Bash(/c/xampp/mysql/bin/mysql -u root -h localhost uniconnect -e \"DROP TABLE IF EXISTS Rides; DROP TABLE IF EXISTS Vehicles;\")",
+      "Bash(/c/xampp/mysql/bin/mysql -u root -h localhost uniconnect -e \"SHOW TABLES;\")",
+      "Bash(/c/xampp/php/php.exe -l config/database.php)",
+      "Bash(/c/xampp/php/php.exe -r 'require '\\\\''config/database.php'\\\\''; $pdo = Database::getConnection\\(\\); echo '\\\\''Connected OK, DB_PASS from getenv: ['\\\\'' . getenv\\('\\\\''DB_PASS'\\\\''\\) . '\\\\'']'\\\\'' . PHP_EOL;')",
+      "Bash(tasklist //FI \"IMAGENAME eq httpd.exe\" //FI \"IMAGENAME eq mysqld.exe\")",
+      "Bash(tasklist)",
+      "Bash(powershell -Command 'Get-Service | Where-Object {$_.Name -match '\\\\''apache|mysql'\\\\''} | Format-Table -AutoSize')",
+      "Bash(netstat -ano)",
+      "Bash(tasklist //FI \"IMAGENAME eq mysqld.exe\" //FI \"PID eq 7240\")",
+      "Bash(wmic process *)"
+    ]
+  }
+}

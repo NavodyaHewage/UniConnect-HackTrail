@@ -4,7 +4,7 @@
     <span class="hero-eyebrow">&#128205; Built for Faculty of Technology students</span>
     <h1>Your campus, connected within 3km.</h1>
     <p class="lead">
-        UniConnect brings boarding, rides, gigs, skills, and cashless barter into one
+        UniConnect brings boarding, gigs, skills, and cashless barter into one
         hyper-local platform &mdash; verified, geo-fenced, and built by students for the community around campus.
     </p>
     <div class="hero-actions">
@@ -19,7 +19,7 @@
         <div class="stat-label">Geo-fenced campus radius</div>
     </div>
     <div class="stat-card">
-        <div class="stat-value">5</div>
+        <div class="stat-value">4</div>
         <div class="stat-label">Core modules in one app</div>
     </div>
     <div class="stat-card">
@@ -43,11 +43,6 @@
         <span class="feature-icon">&#128188;</span>
         <h3>Micro-Job Marketplace</h3>
         <p>Apply for or post IT repair, software help, tutoring, and hardware gigs tailored to student schedules.</p>
-    </div>
-    <div class="feature-card">
-        <span class="feature-icon">&#128690;</span>
-        <h3>Ride System</h3>
-        <p>Offer or request bicycle rides and tuk-tuks nearby, with live status tracking and fair fares.</p>
     </div>
     <div class="feature-card">
         <span class="feature-icon">&#9733;</span>

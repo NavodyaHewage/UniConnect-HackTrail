@@ -45,4 +45,11 @@ class User
 
         return $user ?: null;
     }
+
+    public function all(): array
+    {
+        $stmt = $this->db->query('SELECT user_id, name, email, phone, user_role, created_at FROM Users ORDER BY user_id DESC');
+
+        return $stmt->fetchAll();
+    }
 }

@@ -11,16 +11,23 @@ class Job
         $this->db = Database::getConnection();
     }
 
-    public function all(?string $status = 'open'): array
+    public function all(?string $status = 'open', ?string $category = null): array
     {
-        $sql = 'SELECT j.*, u.name AS posted_by_name
-                FROM Jobs j JOIN Users u ON u.user_id = j.posted_by';
+        $sql = 'SELECT * FROM Jobs';
+        $conditions = [];
         $params = [];
         if ($status !== null) {
-            $sql .= ' WHERE j.status = :status';
+            $conditions[] = 'status = :status';
             $params['status'] = $status;
         }
-        $sql .= ' ORDER BY j.job_id DESC';
+        if ($category !== null) {
+            $conditions[] = 'category = :category';
+            $params['category'] = $category;
+        }
+        if ($conditions) {
+            $sql .= ' WHERE ' . implode(' AND ', $conditions);
+        }
+        $sql .= ' ORDER BY job_id DESC';
 
         $stmt = $this->db->prepare($sql);
         $stmt->execute($params);
@@ -40,17 +47,18 @@ class Job
     public function create(array $data): int
     {
         $stmt = $this->db->prepare(
-            'INSERT INTO Jobs (posted_by, title, description, budget, status, latitude, longitude)
-             VALUES (:posted_by, :title, :description, :budget, :status, :latitude, :longitude)'
+            'INSERT INTO Jobs (posted_by, poster_name, poster_phone, title, description, budget, status, category)
+             VALUES (:posted_by, :poster_name, :poster_phone, :title, :description, :budget, :status, :category)'
         );
         $stmt->execute([
-            'posted_by'   => $data['posted_by'],
-            'title'       => $data['title'],
-            'description' => $data['description'],
-            'budget'      => $data['budget'],
-            'status'      => $data['status'] ?? 'open',
-            'latitude'    => $data['latitude'] ?? null,
-            'longitude'   => $data['longitude'] ?? null,
+            'posted_by'    => $data['posted_by'],
+            'poster_name'  => $data['poster_name'],
+            'poster_phone' => $data['poster_phone'],
+            'title'        => $data['title'],
+            'description'  => $data['description'],
+            'budget'       => $data['budget'],
+            'status'       => $data['status'] ?? 'open',
+            'category'     => $data['category'] ?? 'software',
         ]);
 
         return (int) $this->db->lastInsertId();
@@ -61,5 +69,19 @@ class Job
         $stmt = $this->db->prepare('UPDATE Jobs SET status = :status WHERE job_id = :id');
 
         return $stmt->execute(['status' => $status, 'id' => $id]);
+    }
+
+    public function incrementViews(int $id): bool
+    {
+        $stmt = $this->db->prepare('UPDATE Jobs SET views = views + 1 WHERE job_id = :id');
+
+        return $stmt->execute(['id' => $id]);
+    }
+
+    public function delete(int $id): bool
+    {
+        $stmt = $this->db->prepare('DELETE FROM Jobs WHERE job_id = :id');
+
+        return $stmt->execute(['id' => $id]);
     }
 }

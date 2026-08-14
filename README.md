@@ -1,11 +1,11 @@
 # UniConnect
 
-A hyper-local platform for Faculty of Technology students and the surrounding community: boarding listings, a micro-job marketplace, a bicycle/tuk-tuk ride system, a verified skills directory, and a cashless time-bank/skill-swap system — all geo-fenced to a 2-3km campus radius.
+A hyper-local platform for Faculty of Technology students and the surrounding community: boarding listings, a micro-job marketplace, a verified skills directory with paid classes, and a cashless time-bank/skill-swap system — all geo-fenced to a 2-3km campus radius.
 
 ## Roles
 
-- **Student** — search/book rooms, offer bicycle rides or request tuk-tuks, apply for gigs, build a skills profile.
-- **Villager** — list boarding rooms, offer rides, post local tasks, trade produce/meals/transport for tech help.
+- **Student** — search/book rooms, apply for gigs, build a skills profile, and post individual or group classes for village students to earn money.
+- **Villager** — list boarding rooms, post local tasks, browse and enroll in student-taught classes, trade produce/meals/transport for tech help.
 - **Admin** — verifies listings, moderates jobs, manages skill badges (gated via the `user_role` flag on `Users`).
 
 ## Stack
@@ -24,15 +24,15 @@ PHP 8.x (PDO, no framework) + MySQL + Bootstrap 5, served by Apache/WAMP.
 ```
 uniconnect/
 ├── config/            # PDO database connection setup
-├── controllers/       # Auth, Boarding, Job, Ride, Skill, Swap
-├── models/            # User, Boarding, Job, Ride, Vehicle, Skill, SkillSwap
+├── controllers/       # Auth, Boarding, Job, Class, Skill, Swap
+├── models/            # User, Boarding, Job, ClassListing, ClassEnrollment, Skill, SkillSwap
 ├── views/
 │   ├── auth/           # login, register
 │   ├── dashboard/      # student_dashboard, villager_dashboard
 │   ├── boarding/       # listing grid, listing detail, post room
-│   ├── rides/          # request, offer, live status
 │   ├── jobs/           # feed, detail, post task, my applications
 │   ├── skills/         # public profile w/ badges, directory search
+│   ├── classes/        # nested under Skills (/skills/classes/*): browse, post, detail + enroll, my classes/earnings
 │   ├── swaps/          # barter feed, propose swap, swap history
 │   └── layout/         # shared header.php / footer.php
 ├── public/            # front controller (index.php), .htaccess, css, js
@@ -45,4 +45,6 @@ uniconnect/
 
 ## Notes on the schema
 
-`Skills`, `SkillSwaps`, and the `latitude`/`longitude` columns on `Boardings`, `Rides`, and `Jobs` are part of the base schema in this repo (they were gaps in the original pitch-deck design and have since been folded in). Geo-fencing enforcement (2-3km radius check) still needs to be implemented inside the Boarding/Job/Ride controllers using the stored coordinates.
+`Skills` and `SkillSwaps` are part of the base schema in this repo (they were gaps in the original pitch-deck design and have since been folded in). `Boardings` no longer stores coordinates. The ride-sharing feature (`Rides`/`Vehicles` tables, `RideController`, `views/rides/`) has been removed from the app.
+
+`Classes` holds individual or group classes posted by students (subject, price per student, max seats, schedule); `ClassEnrollments` tracks which villagers signed up and whether the tutor has confirmed them (`confirmed` enrollments count toward the tutor's earnings shown on `/skills/classes/my`). Classes live under the Skills category — routed at `/skills/classes/*` and reached via the Skills Directory page rather than a separate top-level nav item.

@@ -1,0 +1,39 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(/c/xampp/mysql/bin/mysql -u root uniconnect -e ' *)",
+      "Bash(/c/xampp/mysql/bin/mysql -u root -h localhost uniconnect -e \"ALTER TABLE Boardings DROP COLUMN latitude, DROP COLUMN longitude;\")",
+      "Bash(/c/xampp/mysql/bin/mysql -u root -h localhost uniconnect -e \"DESCRIBE Boardings;\")",
+      "Bash(/c/xampp/mysql/bin/mysql -u root -h localhost uniconnect -e \"SELECT job_id, title, status FROM Jobs;\")",
+      "Bash(/c/xampp/mysql/bin/mysql -u root -h localhost uniconnect -e \"ALTER TABLE Jobs ADD COLUMN category ENUM\\('software','hardware'\\) NOT NULL DEFAULT 'software' AFTER status;\")",
+      "Bash(/c/xampp/mysql/bin/mysql -u root -h localhost uniconnect -e \"UPDATE Jobs SET category='hardware' WHERE title LIKE '%repair%';\")",
+      "Bash(/c/xampp/mysql/bin/mysql -u root -h localhost uniconnect -e \"SELECT job_id, title, category FROM Jobs;\")",
+      "Bash(/c/xampp/php/php.exe -r ' *)",
+      "Bash(/c/xampp/mysql/bin/mysql -u root -h localhost uniconnect -e \"SELECT s.skill_id, s.user_id, u.name, u.user_role, s.skill_name, s.verification_source, s.is_verified FROM Skills s JOIN Users u ON u.user_id = s.user_id;\")",
+      "Bash(/c/xampp/mysql/bin/mysql -u root -h localhost uniconnect -e ' *)",
+      "Bash(/c/xampp/mysql/bin/mysql -u root -h localhost uniconnect -e \"INSERT INTO Skills \\(user_id, skill_name, verification_source, is_verified\\) VALUES \\(3, 'Tailoring', NULL, FALSE\\);\")",
+      "Bash(/c/xampp/mysql/bin/mysql -u root -h localhost uniconnect -e \"SELECT s.skill_id, u.name, u.user_role, s.skill_name, s.is_verified FROM Skills s JOIN Users u ON u.user_id=s.user_id ORDER BY u.user_role, u.name;\")",
+      "Bash(curl -s -o /tmp/skdir.html -w \"HTTP %{http_code}\\\\n\" \"http://localhost/UniConnect-HackTrail/public/skills/directory?q=repair\")",
+      "Bash(curl -s -o /tmp/skprofile.html -w \"HTTP %{http_code}\\\\n\" \"http://localhost/UniConnect-HackTrail/public/skills/profile/3\")",
+      "Bash(/c/xampp/mysql/bin/mysql -u root -h localhost uniconnect -e \"SELECT boarding_id, owner_id, owner_name, title, status FROM Boardings;\")",
+      "Bash(/c/xampp/mysql/bin/mysql -u root -h localhost uniconnect -e \"SELECT user_id, name, user_role FROM Users;\")",
+      "Bash(/c/xampp/mysql/bin/mysql -u root -h localhost uniconnect -e \"SELECT user_id, name, email, user_role FROM Users ORDER BY user_id;\")",
+      "Bash(/c/xampp/mysql/bin/mysql -u root -h localhost uniconnect -e \"SELECT l.lane_id, l.lane_name, u.name AS agent FROM Lanes l JOIN Users u ON u.user_id=l.agent_id;\")",
+      "Bash(/c/xampp/mysql/bin/mysql -u root -h localhost uniconnect -e \"SELECT boarding_id, owner_name, title, lane_id, ad_fee FROM Boardings;\")",
+      "Bash(/c/xampp/mysql/bin/mysql -u root -h localhost uniconnect -e \"SELECT boarding_id, owner_name, title, lane_id, status FROM Boardings ORDER BY boarding_id;\")",
+      "Bash(curl -s -o /tmp/b9.html -w \"HTTP %{http_code}\\\\n\" \"http://localhost/UniConnect-HackTrail/public/boarding/9\")",
+      "Bash(curl -s -o /tmp/al.html -w \"HTTP %{http_code}\\\\n\" \"http://localhost/UniConnect-HackTrail/public/admin/lanes\")",
+      "Bash(curl -s -o /tmp/bc.html -w \"HTTP %{http_code}\\\\n\" \"http://localhost/UniConnect-HackTrail/public/boarding/create\")",
+      "Bash(curl -s -o /tmp/bc2.html -w \"HTTP %{http_code}\\\\n\" \"http://localhost/UniConnect-HackTrail/public/boarding/create\")",
+      "Bash(curl -s -o /tmp/ml.html -w \"HTTP %{http_code}\\\\n\" \"http://localhost/UniConnect-HackTrail/public/boarding/my-listings\")",
+      "Bash(curl -s -o /tmp/bidx.html -w \"HTTP %{http_code}\\\\n\" \"http://localhost/UniConnect-HackTrail/public/boarding\")",
+      "Bash(curl -s \"http://localhost/UniConnect-HackTrail/public/boarding?search=Kandy\")",
+      "Bash(curl -s \"http://localhost/UniConnect-HackTrail/public/boarding?max_distance=1.5\")",
+      "Bash(/c/xampp/mysql/bin/mysql -u root -h localhost uniconnect -e \"SELECT user_id, name, user_role FROM Users WHERE user_role='student';\")",
+      "Bash(/c/xampp/mysql/bin/mysql -u root -h localhost uniconnect -e \"SELECT rider_id, student_name, vehicle_type, seats_available, status FROM Riders;\")",
+      "Bash(curl -s -o /tmp/r1.html -w \"HTTP %{http_code}\\\\n\" \"http://localhost/UniConnect-HackTrail/public/riders\")",
+      "Bash(curl -s -o /tmp/r2.html -w \"HTTP %{http_code}\\\\n\" \"http://localhost/UniConnect-HackTrail/public/riders/my\")",
+      "Bash(/c/xampp/php/php.exe -l views/riders/directory.php)"
+    ]
+  }
+}

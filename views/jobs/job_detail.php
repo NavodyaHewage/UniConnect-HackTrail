@@ -1,12 +1,20 @@
 <?php require __DIR__ . '/../layout/header.php'; ?>
 
 <?php if ($job): ?>
+    <?php $categoryLabels = ['software' => 'Software & Web Dev', 'hardware' => 'Hardware & Repair']; ?>
+    <span class="badge bg-secondary mb-2"><?= htmlspecialchars($categoryLabels[$job['category']] ?? $job['category']) ?></span>
     <h1 class="h3 mb-3"><?= htmlspecialchars($job['title']) ?></h1>
     <p><?= nl2br(htmlspecialchars($job['description'])) ?></p>
     <p><strong>Budget:</strong> LKR <?= number_format((float) $job['budget'], 2) ?></p>
     <p><strong>Status:</strong> <span class="badge bg-info text-dark"><?= htmlspecialchars($job['status']) ?></span></p>
+    <p><strong>Posted by:</strong> <?= htmlspecialchars($job['poster_name']) ?></p>
+    <p><strong>Contact Number:</strong> <?= htmlspecialchars($job['poster_phone']) ?></p>
 
-    <?php if ($job['status'] === 'open'): ?>
+    <?php if (($_SESSION['user_id'] ?? null) == $job['posted_by']): ?>
+        <p><strong>Views:</strong> <?= (int) $job['views'] ?> people have viewed this gig.</p>
+    <?php endif; ?>
+
+    <?php if ($job['status'] === 'open' && ($_SESSION['user_role'] ?? null) === 'student'): ?>
         <form method="POST" action="<?= url('/jobs/apply') ?>">
             <input type="hidden" name="job_id" value="<?= (int) $job['job_id'] ?>">
             <button type="submit" class="btn btn-primary">Apply for this Gig</button>

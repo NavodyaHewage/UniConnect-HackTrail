@@ -32,15 +32,62 @@
             <a href="<?= url('/dashboard') ?>" class="sidebar-link <?= isActive('/dashboard') ?>">
                 <span class="sidebar-icon">&#9635;</span> Dashboard
             </a>
+            <?php if (($_SESSION['user_role'] ?? null) === 'admin'): ?>
+                <a href="<?= url('/admin') ?>" class="sidebar-link <?= isActive('/admin') ?>">
+                    <span class="sidebar-icon">&#9881;</span> Admin Panel
+                </a>
+            <?php endif; ?>
             <a href="<?= url('/boarding') ?>" class="sidebar-link <?= isActive('/boarding') ?>">
                 <span class="sidebar-icon">&#8962;</span> Boarding
+            </a>
+            <a href="<?= url('/riders') ?>" class="sidebar-link <?= isActive('/riders') ?>">
+                <span class="sidebar-icon">&#128690;</span> Riders
             </a>
             <a href="<?= url('/jobs') ?>" class="sidebar-link <?= isActive('/jobs') ?>">
                 <span class="sidebar-icon">&#128188;</span> Jobs
             </a>
-            <a href="<?= url('/rides/request') ?>" class="sidebar-link <?= isActive('/rides') ?>">
-                <span class="sidebar-icon">&#128690;</span> Rides
+            <div class="sidebar-sublinks">
+                <a href="<?= url('/jobs?category=software') ?>" class="sidebar-sublink <?= ($_GET['category'] ?? null) === 'software' ? 'active' : '' ?>">
+                    Software &amp; Web Dev
+                </a>
+                <a href="<?= url('/jobs?category=hardware') ?>" class="sidebar-sublink <?= ($_GET['category'] ?? null) === 'hardware' ? 'active' : '' ?>">
+                    Hardware &amp; Repair
+                </a>
+            </div>
+            <?php $helpReqHref = ($_SESSION['user_role'] ?? null) === 'villager' ? '/help-requests/my' : '/help-requests'; ?>
+            <a href="<?= url($helpReqHref) ?>" class="sidebar-link <?= isActive('/help-requests') ?>">
+                <span class="sidebar-icon">&#128221;</span> Help Requests
             </a>
+            <?php if (($_SESSION['user_role'] ?? null) === 'student'): ?>
+                <div class="sidebar-sublinks">
+                    <a href="<?= url('/help-requests?category=general') ?>" class="sidebar-sublink <?= ($_GET['category'] ?? null) === 'general' ? 'active' : '' ?>">
+                        General Errand
+                    </a>
+                    <a href="<?= url('/help-requests?category=software') ?>" class="sidebar-sublink <?= ($_GET['category'] ?? null) === 'software' ? 'active' : '' ?>">
+                        Software &amp; Web Dev
+                    </a>
+                    <a href="<?= url('/help-requests?category=hardware') ?>" class="sidebar-sublink <?= ($_GET['category'] ?? null) === 'hardware' ? 'active' : '' ?>">
+                        Hardware &amp; Repair
+                    </a>
+                </div>
+            <?php endif; ?>
+            <?php $productsHref = ($_SESSION['user_role'] ?? null) === 'villager' ? '/products/my-listings' : '/products'; ?>
+            <a href="<?= url($productsHref) ?>" class="sidebar-link <?= isActive('/products') ?>">
+                <span class="sidebar-icon">&#127811;</span> Village Products
+            </a>
+            <?php if (($_SESSION['user_role'] ?? null) === 'student'): ?>
+                <div class="sidebar-sublinks">
+                    <a href="<?= url('/products?category=spices') ?>" class="sidebar-sublink <?= ($_GET['category'] ?? null) === 'spices' ? 'active' : '' ?>">
+                        Spices
+                    </a>
+                    <a href="<?= url('/products?category=tea') ?>" class="sidebar-sublink <?= ($_GET['category'] ?? null) === 'tea' ? 'active' : '' ?>">
+                        Tea Leaves
+                    </a>
+                    <a href="<?= url('/products?category=mushroom') ?>" class="sidebar-sublink <?= ($_GET['category'] ?? null) === 'mushroom' ? 'active' : '' ?>">
+                        Mushroom
+                    </a>
+                </div>
+            <?php endif; ?>
             <a href="<?= url('/skills/directory') ?>" class="sidebar-link <?= isActive('/skills') ?>">
                 <span class="sidebar-icon">&#9733;</span> Skills
             </a>
@@ -88,4 +135,8 @@
     <?php if (!empty($_SESSION['error'])): ?>
         <div class="alert alert-danger"><?= htmlspecialchars($_SESSION['error']) ?></div>
         <?php unset($_SESSION['error']); ?>
+    <?php endif; ?>
+    <?php if (!empty($_SESSION['success'])): ?>
+        <div class="alert alert-success"><?= htmlspecialchars($_SESSION['success']) ?></div>
+        <?php unset($_SESSION['success']); ?>
     <?php endif; ?>

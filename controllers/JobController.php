@@ -14,12 +14,16 @@ class JobController
     public function index(): void
     {
         $category = $_GET['category'] ?? null;
-        $jobs = $this->jobModel->all('open');
+        if (!in_array($category, ['software', 'hardware'], true)) {
+            $category = null;
+        }
+        $jobs = $this->jobModel->all('open', $category);
         require __DIR__ . '/../views/jobs/job_feed.php';
     }
 
     public function show(int $id): void
     {
+        $this->jobModel->incrementViews($id);
         $job = $this->jobModel->find($id);
         require __DIR__ . '/../views/jobs/job_detail.php';
     }
@@ -31,13 +35,18 @@ class JobController
 
     public function store(): void
     {
+        $category = in_array($_POST['category'] ?? null, ['software', 'hardware'], true)
+            ? $_POST['category']
+            : 'software';
+
         $this->jobModel->create([
-            'posted_by'   => $_SESSION['user_id'],
-            'title'       => trim($_POST['title'] ?? ''),
-            'description' => trim($_POST['description'] ?? ''),
-            'budget'      => $_POST['budget'] ?? 0,
-            'latitude'    => $_POST['latitude'] ?? null,
-            'longitude'   => $_POST['longitude'] ?? null,
+            'posted_by'    => $_SESSION['user_id'],
+            'poster_name'  => trim($_POST['poster_name'] ?? ''),
+            'poster_phone' => trim($_POST['poster_phone'] ?? ''),
+            'title'        => trim($_POST['title'] ?? ''),
+            'description'  => trim($_POST['description'] ?? ''),
+            'budget'       => $_POST['budget'] ?? 0,
+            'category'     => $category,
         ]);
 
         header('Location: ' . url('/jobs'));

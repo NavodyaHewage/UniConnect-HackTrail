@@ -1,22 +1,23 @@
 <?php require __DIR__ . '/../layout/header.php'; ?>
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="h3 mb-0">Job Marketplace</h1>
-    <a href="<?= url('/jobs/create') ?>" class="btn btn-primary">+ Post a Task</a>
-</div>
+<?php
+    $categoryLabels = ['software' => 'Software & Web Dev', 'hardware' => 'Hardware & Repair'];
+    $heading = $categoryLabels[$category] ?? null;
+?>
 
-<ul class="nav nav-tabs mb-4">
-    <li class="nav-item"><a class="nav-link <?= !$category ? 'active' : '' ?>" href="<?= url('/jobs') ?>">All</a></li>
-    <li class="nav-item"><a class="nav-link <?= $category === 'software' ? 'active' : '' ?>" href="<?= url('/jobs?category=software') ?>">Software &amp; Web Dev</a></li>
-    <li class="nav-item"><a class="nav-link <?= $category === 'hardware' ? 'active' : '' ?>" href="<?= url('/jobs?category=hardware') ?>">Hardware &amp; Repair</a></li>
-    <li class="nav-item"><a class="nav-link <?= $category === 'tutoring' ? 'active' : '' ?>" href="<?= url('/jobs?category=tutoring') ?>">Tutoring &amp; Coaching</a></li>
-</ul>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 mb-0"><?= $heading ? htmlspecialchars($heading) . ' Jobs' : 'Job Marketplace' ?></h1>
+    <?php if (($_SESSION['user_role'] ?? null) === 'student'): ?>
+        <a href="<?= url('/jobs/create') ?>" class="btn btn-primary">+ Post a Task</a>
+    <?php endif; ?>
+</div>
 
 <div class="row g-4">
     <?php foreach ($jobs as $job): ?>
         <div class="col-md-4">
             <div class="card h-100">
                 <div class="card-body">
+                    <span class="badge bg-secondary mb-2"><?= htmlspecialchars($categoryLabels[$job['category']] ?? $job['category']) ?></span>
                     <h2 class="h5"><?= htmlspecialchars($job['title']) ?></h2>
                     <p class="text-muted"><?= htmlspecialchars(mb_strimwidth($job['description'], 0, 100, '...')) ?></p>
                     <p class="mb-1">Budget: LKR <?= number_format((float) $job['budget'], 2) ?></p>
