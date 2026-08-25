@@ -34,6 +34,7 @@
       "Bash(powershell -Command 'Get-Service | Where-Object {$_.Name -match '\\\\''apache|mysql'\\\\''} | Format-Table -AutoSize')",
       "Bash(netstat -ano)",
       "Bash(tasklist //FI \"IMAGENAME eq mysqld.exe\" //FI \"PID eq 7240\")",
+      "Bash(wmic process *)",
       "Bash(/c/xampp/mysql/bin/mysql -u root uniconnect -e \"SHOW TABLES;\")",
       "Bash(/c/xampp/mysql/bin/mysql -u root uniconnect -e \"SHOW COLUMNS FROM Users LIKE 'user_role';\")",
       "Bash(/c/xampp/mysql/bin/mysql -u root uniconnect -e \"DESCRIBE Lanes;\")",
