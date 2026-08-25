@@ -29,7 +29,7 @@ class AuthController
         $password = $_POST['password'] ?? '';
         $role     = $_POST['user_role'] ?? '';
 
-        if ($name === '' || $email === '' || $phone === '' || $password === '' || !in_array($role, ['student', 'villager'], true)) {
+        if ($name === '' || $email === '' || $phone === '' || $password === '' || !in_array($role, ['student', 'villager', 'admin', 'agent'], true)) {
             $_SESSION['error'] = 'All fields are required.';
             header('Location: ' . url('/register'));
             return;

@@ -88,6 +88,11 @@
                     </a>
                 </div>
             <?php endif; ?>
+            <?php if (($_SESSION['user_role'] ?? null) === 'student'): ?>
+                <a href="<?= url('/agent-requests/create') ?>" class="sidebar-link <?= isActive('/agent-requests') ?>">
+                    <span class="sidebar-icon">&#128100;</span> Request
+                </a>
+            <?php endif; ?>
             <a href="<?= url('/skills/directory') ?>" class="sidebar-link <?= isActive('/skills') ?>">
                 <span class="sidebar-icon">&#9733;</span> Skills
             </a>

@@ -60,6 +60,15 @@
     <div class="col-md-3">
         <div class="card h-100">
             <div class="card-body">
+                <h2 class="h5">Agent Requests</h2>
+                <p class="text-muted"><?= (int) $stats['pending_agent_requests'] ?> pending review.</p>
+                <a href="<?= url('/admin/agent-requests') ?>" class="btn btn-sm btn-outline-primary">Review Requests</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card h-100">
+            <div class="card-body">
                 <h2 class="h5">New Admin</h2>
                 <p class="text-muted">Grant another account admin privileges.</p>
                 <a href="<?= url('/admin/create-admin') ?>" class="btn btn-sm btn-outline-primary">Create Admin</a>

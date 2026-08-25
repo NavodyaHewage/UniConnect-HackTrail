@@ -13,6 +13,7 @@ require_once __DIR__ . '/../controllers/SwapController.php';
 require_once __DIR__ . '/../controllers/RiderController.php';
 require_once __DIR__ . '/../controllers/HelpRequestController.php';
 require_once __DIR__ . '/../controllers/ProductController.php';
+require_once __DIR__ . '/../controllers/AgentRequestController.php';
 
 // The app may be deployed either at a domain root (via a vhost pointing at
 // public/) or under a subfolder like /UniConnect-HackTrail/public/ on a
@@ -78,6 +79,7 @@ $swaps    = new SwapController();
 $riders   = new RiderController();
 $helpReqs = new HelpRequestController();
 $products = new ProductController();
+$agentReq = new AgentRequestController();
 
 switch (true) {
     // Home / dashboard
@@ -188,6 +190,16 @@ switch (true) {
         requireRole('admin');
         $admin->users();
         break;
+    case preg_match('#^/admin/users/(\d+)/role$#', $uri, $m) === 1 && $method === 'POST':
+        requireLogin();
+        requireRole('admin');
+        $admin->updateUserRole((int) $m[1]);
+        break;
+    case preg_match('#^/admin/users/(\d+)/delete$#', $uri, $m) === 1 && $method === 'POST':
+        requireLogin();
+        requireRole('admin');
+        $admin->deleteUser((int) $m[1]);
+        break;
     case $uri === '/admin/create-admin' && $method === 'GET':
         requireLogin();
         requireRole('admin');
@@ -242,6 +254,33 @@ switch (true) {
         requireLogin();
         requireRole('admin');
         $admin->createLane();
+        break;
+    case $uri === '/admin/agent-requests':
+        requireLogin();
+        requireRole('admin');
+        $admin->agentRequests();
+        break;
+    case preg_match('#^/admin/agent-requests/(\d+)/approve$#', $uri, $m) === 1 && $method === 'POST':
+        requireLogin();
+        requireRole('admin');
+        $admin->approveAgentRequest((int) $m[1]);
+        break;
+    case preg_match('#^/admin/agent-requests/(\d+)/reject$#', $uri, $m) === 1 && $method === 'POST':
+        requireLogin();
+        requireRole('admin');
+        $admin->rejectAgentRequest((int) $m[1]);
+        break;
+
+    // Agent Requests
+    case $uri === '/agent-requests/create':
+        requireLogin();
+        requireRole('student');
+        $agentReq->showCreateForm();
+        break;
+    case $uri === '/agent-requests' && $method === 'POST':
+        requireLogin();
+        requireRole('student');
+        $agentReq->store();
         break;
 
     // Jobs

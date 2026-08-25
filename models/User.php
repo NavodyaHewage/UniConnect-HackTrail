@@ -52,4 +52,18 @@ class User
 
         return $stmt->fetchAll();
     }
+
+    public function updateRole(int $id, string $role): bool
+    {
+        $stmt = $this->db->prepare('UPDATE Users SET user_role = :role WHERE user_id = :id');
+
+        return $stmt->execute(['role' => $role, 'id' => $id]);
+    }
+
+    public function delete(int $id): bool
+    {
+        $stmt = $this->db->prepare('DELETE FROM Users WHERE user_id = :id');
+
+        return $stmt->execute(['id' => $id]);
+    }
 }

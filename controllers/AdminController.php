@@ -6,6 +6,7 @@ require_once __DIR__ . '/../models/Job.php';
 require_once __DIR__ . '/../models/Skill.php';
 require_once __DIR__ . '/../models/SkillSwap.php';
 require_once __DIR__ . '/../models/Lane.php';
+require_once __DIR__ . '/../models/AgentRequest.php';
 
 class AdminController
 {
@@ -15,25 +16,28 @@ class AdminController
     private Skill $skillModel;
     private SkillSwap $swapModel;
     private Lane $laneModel;
+    private AgentRequest $agentRequestModel;
 
     public function __construct()
     {
-        $this->userModel     = new User();
-        $this->boardingModel = new Boarding();
-        $this->jobModel      = new Job();
-        $this->skillModel    = new Skill();
-        $this->swapModel     = new SkillSwap();
-        $this->laneModel     = new Lane();
+        $this->userModel         = new User();
+        $this->boardingModel     = new Boarding();
+        $this->jobModel          = new Job();
+        $this->skillModel        = new Skill();
+        $this->swapModel         = new SkillSwap();
+        $this->laneModel         = new Lane();
+        $this->agentRequestModel = new AgentRequest();
     }
 
     public function dashboard(): void
     {
         $stats = [
-            'users'      => count($this->userModel->all()),
-            'boardings'  => count($this->boardingModel->all(null)),
-            'jobs'       => count($this->jobModel->all(null)),
-            'swaps'      => count($this->swapModel->all()),
-            'ad_revenue' => $this->boardingModel->totalAdRevenue(),
+            'users'                  => count($this->userModel->all()),
+            'boardings'              => count($this->boardingModel->all(null)),
+            'jobs'                   => count($this->jobModel->all(null)),
+            'swaps'                  => count($this->swapModel->all()),
+            'ad_revenue'             => $this->boardingModel->totalAdRevenue(),
+            'pending_agent_requests' => count($this->agentRequestModel->all('pending')),
         ];
         require __DIR__ . '/../views/admin/dashboard.php';
     }
@@ -42,6 +46,43 @@ class AdminController
     {
         $users = $this->userModel->all();
         require __DIR__ . '/../views/admin/users.php';
+    }
+
+    public function updateUserRole(int $id): void
+    {
+        $role = $_POST['user_role'] ?? '';
+
+        if ($id === (int) $_SESSION['user_id']) {
+            $_SESSION['error'] = "You can't change your own role.";
+            header('Location: ' . url('/admin/users'));
+            return;
+        }
+
+        if (!in_array($role, ['student', 'villager', 'admin', 'agent'], true)) {
+            $_SESSION['error'] = 'Invalid role.';
+            header('Location: ' . url('/admin/users'));
+            return;
+        }
+
+        $this->userModel->updateRole($id, $role);
+        header('Location: ' . url('/admin/users'));
+    }
+
+    public function deleteUser(int $id): void
+    {
+        if ($id === (int) $_SESSION['user_id']) {
+            $_SESSION['error'] = "You can't delete your own account.";
+            header('Location: ' . url('/admin/users'));
+            return;
+        }
+
+        try {
+            $this->userModel->delete($id);
+        } catch (PDOException $e) {
+            $_SESSION['error'] = 'This user has existing listings, gigs, or other records and cannot be deleted until those are removed first.';
+        }
+
+        header('Location: ' . url('/admin/users'));
     }
 
     public function showCreateAdminForm(): void
@@ -131,5 +172,28 @@ class AdminController
         }
 
         header('Location: ' . url('/admin/lanes'));
+    }
+
+    public function agentRequests(): void
+    {
+        $agentRequests = $this->agentRequestModel->all();
+        require __DIR__ . '/../views/admin/agent_requests.php';
+    }
+
+    public function approveAgentRequest(int $id): void
+    {
+        $request = $this->agentRequestModel->find($id);
+        if ($request) {
+            $this->agentRequestModel->updateStatus($id, 'approved');
+            $this->userModel->updateRole((int) $request['user_id'], 'agent');
+        }
+
+        header('Location: ' . url('/admin/agent-requests'));
+    }
+
+    public function rejectAgentRequest(int $id): void
+    {
+        $this->agentRequestModel->updateStatus($id, 'rejected');
+        header('Location: ' . url('/admin/agent-requests'));
     }
 }

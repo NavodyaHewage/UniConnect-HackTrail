@@ -18,6 +18,12 @@
             <button type="button" class="auth-tab" data-role="villager" data-subtitle="List rooms, offer rides, and post local tasks for students.">
                 I'm a Villager
             </button>
+            <button type="button" class="auth-tab" data-role="admin" data-subtitle="Manage users, listings, and platform-wide moderation.">
+                I'm an Admin
+            </button>
+            <button type="button" class="auth-tab" data-role="agent" data-subtitle="Manage assigned boarding lanes on behalf of the platform.">
+                I'm an Agent
+            </button>
         </div>
 
         <h1>Create Your Account</h1>
